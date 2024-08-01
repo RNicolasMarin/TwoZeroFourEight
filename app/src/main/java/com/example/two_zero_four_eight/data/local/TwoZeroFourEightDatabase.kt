@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.two_zero_four_eight.data.local.daos.RecordDao
-import com.example.two_zero_four_eight.data.model.RecordValues
+import com.example.two_zero_four_eight.data.local.entities.RecordValues
 
 @Database(
     entities = [RecordValues::class],

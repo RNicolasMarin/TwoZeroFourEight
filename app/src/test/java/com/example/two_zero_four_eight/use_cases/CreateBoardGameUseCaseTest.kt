@@ -1,10 +1,13 @@
 package com.example.two_zero_four_eight.use_cases
 
-import com.example.two_zero_four_eight.data.model.CurrentRecordData
-import com.example.two_zero_four_eight.data.model.GameState
-import com.example.two_zero_four_eight.data.model.IndividualBestValues
-import com.example.two_zero_four_eight.data.model.SingleGameState
-import com.example.two_zero_four_eight.data.repository.RecordRepository
+import com.example.two_zero_four_eight.domain.models.CurrentRecordData
+import com.example.two_zero_four_eight.presentation.ui.game.GameState
+import com.example.two_zero_four_eight.domain.models.IndividualBestValues
+import com.example.two_zero_four_eight.presentation.ui.game.SingleGameState
+import com.example.two_zero_four_eight.domain.repositories.RecordRepository
+import com.example.two_zero_four_eight.domain.use_cases.AddNumberToBoardGameUseCase
+import com.example.two_zero_four_eight.domain.use_cases.CreateBoardGameUseCase
+import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
 import com.google.common.truth.Truth.*
 import io.mockk.coEvery
 import io.mockk.mockk

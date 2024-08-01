@@ -5,8 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.two_zero_four_eight.data.model.IndividualBestValues
-import com.example.two_zero_four_eight.data.model.RecordValues
+import com.example.two_zero_four_eight.domain.models.IndividualBestValues
+import com.example.two_zero_four_eight.data.local.entities.RecordValues
 
 @Dao
 interface RecordDao {
