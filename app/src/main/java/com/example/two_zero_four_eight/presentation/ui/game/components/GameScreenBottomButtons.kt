@@ -13,14 +13,15 @@ import androidx.compose.ui.unit.Dp
 import com.example.two_zero_four_eight.R
 import com.example.two_zero_four_eight.presentation.design_system.components.IconButton
 import com.example.two_zero_four_eight.presentation.design_system.dimens
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
 
 @Composable
 fun GameScreenBottomButtons(
     topHeight: Dp,
     boardGameHeight: Dp,
     singlePartHeight: Dp,
-    startNewGame: () -> Unit,
-    previousBoard: () -> Unit,
+    onAction: (GameAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val innerPadding = MaterialTheme.dimens.innerPadding
@@ -35,7 +36,7 @@ fun GameScreenBottomButtons(
             iconResource = R.drawable.undo_move_2,
             contentDescription = stringResource(id = R.string.start_again_button_description),
             onClick = {
-                previousBoard()
+                onAction(OnPreviousBoard)
             }
         )
 
@@ -46,7 +47,7 @@ fun GameScreenBottomButtons(
             iconResource = R.drawable.start_again,
             contentDescription = stringResource(id = R.string.start_again_button_description),
             onClick = {
-                startNewGame()
+                onAction(OnStartGame)
             }
         )
     }

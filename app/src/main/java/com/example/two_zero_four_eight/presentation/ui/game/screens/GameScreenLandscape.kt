@@ -21,17 +21,16 @@ import com.example.two_zero_four_eight.presentation.ui.game.components.GameScree
 import com.example.two_zero_four_eight.presentation.ui.game.components.GameScreenLeft
 import com.example.two_zero_four_eight.presentation.design_system.movements.DragGesturesDirectionDetector
 import com.example.two_zero_four_eight.presentation.design_system.movements.MovementDirection
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
 
 @Composable
 fun GameScreenLandscape(
-    uiState: SingleGameState,
+    currentState: SingleGameState,
     currentDirection: MovementDirection,
     showAllSections: Boolean,
     isLoading: Boolean,
-    setCurrentDirection: (MovementDirection) -> Unit,
-    moveNumbers: (MovementDirection) -> Unit,
-    previousBoard: () -> Unit,
-    startNewGame: () -> Unit
+    onAction: (GameAction) -> Unit
 ) {
     val uiSectionSizes = getUiSectionSizesLandscape(LocalConfiguration.current, MaterialTheme.dimens.outerPadding, showAllSections)
 
@@ -43,7 +42,7 @@ fun GameScreenLandscape(
         ) {
             if (showAllSections) {
                 GameScreenLeft(
-                    uiState = uiState,
+                    uiState = currentState,
                     uiSectionSizes = uiSectionSizes,
                     isLoading = isLoading,
                     modifier = Modifier
@@ -51,7 +50,7 @@ fun GameScreenLandscape(
                 )
             }
             BoardGame(
-                tableData = uiState.board,
+                tableData = currentState.board,
                 currentDirection = currentDirection,
                 boardGameSize = uiSectionSizes.boardGameSize,
                 isLoading = isLoading,
@@ -63,8 +62,7 @@ fun GameScreenLandscape(
         DragGesturesDirectionDetector(
             modifier = Modifier.fillMaxSize(),
             onDirectionDetected = {
-                setCurrentDirection(it)
-                moveNumbers(it)
+                onAction(OnMoveNumbers(it))
             }
         ) {
             if (showAllSections) {
@@ -73,8 +71,7 @@ fun GameScreenLandscape(
                     boardGameHeight = 0.dp,
                     singlePartHeight = uiSectionSizes.singlePartHeight,
                     modifier = Modifier.width(uiSectionSizes.singlePartWidth),
-                    previousBoard = { previousBoard() },
-                    startNewGame = { startNewGame() }
+                    onAction = onAction
                 )
             }
         }

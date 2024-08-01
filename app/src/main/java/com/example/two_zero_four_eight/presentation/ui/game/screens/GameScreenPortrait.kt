@@ -23,17 +23,16 @@ import com.example.two_zero_four_eight.presentation.ui.game.components.GameScree
 import com.example.two_zero_four_eight.presentation.ui.game.components.GameScreenTop
 import com.example.two_zero_four_eight.presentation.design_system.movements.DragGesturesDirectionDetector
 import com.example.two_zero_four_eight.presentation.design_system.movements.MovementDirection
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
 
 @Composable
 fun GameScreenPortrait(
-    uiState: SingleGameState,
+    currentState: SingleGameState,
     currentDirection: MovementDirection,
     showAllSections: Boolean,
     isLoading: Boolean,
-    setCurrentDirection: (MovementDirection) -> Unit,
-    moveNumbers: (MovementDirection) -> Unit,
-    previousBoard: () -> Unit,
-    startNewGame: () -> Unit
+    onAction: (GameAction) -> Unit
 ) {
     val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimens.outerPadding, showAllSections)
 
@@ -47,15 +46,15 @@ fun GameScreenPortrait(
             if (showAllSections) {
                 GameScreenTop(
                     singlePartHeight = uiSectionSizes.singlePartHeight,
-                    dataNumber = uiState.numberCurrentRecord,
-                    dataScore = uiState.scoreCurrentRecord,
+                    dataNumber = currentState.numberCurrentRecord,
+                    dataScore = currentState.scoreCurrentRecord,
                     isLoading = isLoading,
                     modifier = Modifier.height(uiSectionSizes.topHeight)
                 )
             }
 
             BoardGame(
-                tableData = uiState.board,
+                tableData = currentState.board,
                 currentDirection = currentDirection,
                 boardGameSize = uiSectionSizes.boardGameSize,
                 isLoading = isLoading,
@@ -64,7 +63,7 @@ fun GameScreenPortrait(
 
             if (showAllSections) {
                 GameScreenBottom(
-                    gameStatus = uiState.gameStatus,
+                    gameStatus = currentState.gameStatus,
                     singlePartHeight = uiSectionSizes.singlePartHeight,
                 )
             }
@@ -72,8 +71,7 @@ fun GameScreenPortrait(
         DragGesturesDirectionDetector(
             modifier = Modifier.fillMaxSize(),
             onDirectionDetected = {
-                setCurrentDirection(it)
-                moveNumbers(it)
+                onAction(OnMoveNumbers(it))
             }
         ) {
             if (showAllSections) {
@@ -82,8 +80,7 @@ fun GameScreenPortrait(
                     boardGameHeight = uiSectionSizes.boardGameHeight,
                     singlePartHeight = uiSectionSizes.singlePartHeight,
                     modifier = Modifier.fillMaxWidth(),
-                    previousBoard = { previousBoard() },
-                    startNewGame = { startNewGame() }
+                    onAction = onAction
                 )
             }
         }

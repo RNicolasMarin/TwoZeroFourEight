@@ -1,73 +1,76 @@
 package com.example.two_zero_four_eight.presentation.ui.game
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.two_zero_four_eight.presentation.design_system.movements.MovementDirection
 import com.example.two_zero_four_eight.presentation.design_system.movements.MovementDirection.*
 import com.example.two_zero_four_eight.domain.use_cases.CreateBoardGameUseCase
 import com.example.two_zero_four_eight.domain.use_cases.MoveNumbersUseCase
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 const val DEFAULT_NUMBER_TO_WIN = 16
 
 @HiltViewModel
-class TwoZeroFourEightViewModel @Inject constructor(
+class GameViewModel @Inject constructor(
     private val boardGameUseCases: CreateBoardGameUseCase,
     private val moveNumbersUseCase: MoveNumbersUseCase
 ) : ViewModel() {
 
-    private val _gameState = MutableStateFlow(GameState())
-    val gameState = _gameState.asStateFlow()
+    var state by mutableStateOf(GameState())
+        private set
 
     init {
         startNewGame()
     }
 
-    fun startNewGame() = viewModelScope.launch  {
-        _gameState.update {
-            it.copy(isLoading = true)
+    fun onAction(action: GameAction) {
+        when(action) {
+            is OnMoveNumbers -> moveNumbers(action.direction)
+            OnPreviousBoard -> previousBoard()
+            OnStartGame -> startNewGame()
         }
+    }
 
-        val current = _gameState.value.currentState
+    private fun startNewGame() = viewModelScope.launch {
+        state = state.copy(
+            isLoading = true
+        )
+
+        val current = state.currentState
         val newBoard = boardGameUseCases.createBoardGame(current, 3)
 
-        _gameState.update {
-            it.copy(
-                currentState = newBoard.currentState,
-                previousState = newBoard.previousState,
-                originalBestValues = newBoard.originalBestValues,
-                isLoading = false
-            )
-        }
+        state = state.copy(
+            currentState = newBoard.currentState,
+            previousState = newBoard.previousState,
+            originalBestValues = newBoard.originalBestValues,
+            isLoading = false
+        )
     }
 
-    fun moveNumbers(direction: MovementDirection) = viewModelScope.launch {
+    private fun moveNumbers(direction: MovementDirection) = viewModelScope.launch {
         if (direction == NONE) return@launch
 
-        val newBoard = moveNumbersUseCase.moveNumbers(direction, _gameState.value)
+        val newBoard = moveNumbersUseCase.moveNumbers(direction, state)
 
-        _gameState.update {
-            it.copy(
-                currentState = newBoard.currentState,
-                previousState = newBoard.previousState,
-                originalBestValues = newBoard.originalBestValues
-            )
-        }
+        state = state.copy(
+            currentState = newBoard.currentState,
+            previousState = newBoard.previousState,
+            originalBestValues = newBoard.originalBestValues
+        )
     }
 
-    fun previousBoard() = viewModelScope.launch {
-        val previous = _gameState.value.previousState ?: return@launch
+    private fun previousBoard() = viewModelScope.launch {
+        val previous = state.previousState ?: return@launch
 
-        _gameState.update {
-            it.copy(
-                currentState = previous.copy(),
-                previousState = null,
-            )
-        }
+        state = state.copy(
+            currentState = previous.copy(),
+            previousState = null,
+        )
     }
 }
