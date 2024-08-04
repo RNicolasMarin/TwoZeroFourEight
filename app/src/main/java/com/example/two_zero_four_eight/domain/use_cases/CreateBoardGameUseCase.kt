@@ -41,8 +41,8 @@ class CreateBoardGameUseCase @Inject constructor(
         val individualBestValues = repository.getIndividualBestValues(size) ?: IndividualBestValues()
 
         return GameState(
-            //iif there's a previous state it uses it, if not sets a null
-            previousState = if (previousState.board.isEmpty()) null else previousState,
+            //if there's a previous state it uses it, if not sets a null
+            previousState = if (previousState.board.isEmpty() || previousState.gameStatus == GAME_OVER) null else previousState,
             currentState = SingleGameState(
                 board = boardGame,
                 gameStatus = PLAYING,

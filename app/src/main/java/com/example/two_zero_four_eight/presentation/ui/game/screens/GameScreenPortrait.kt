@@ -25,6 +25,7 @@ import com.example.two_zero_four_eight.presentation.design_system.movements.Drag
 import com.example.two_zero_four_eight.presentation.design_system.movements.MovementDirection
 import com.example.two_zero_four_eight.presentation.ui.game.GameAction
 import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 
 @Composable
 fun GameScreenPortrait(
@@ -61,7 +62,7 @@ fun GameScreenPortrait(
                 modifier = Modifier.height(uiSectionSizes.boardGameHeight)
             )
 
-            if (showAllSections) {
+            if (showAllSections && currentState.gameStatus != GAME_OVER) {
                 GameScreenBottom(
                     gameStatus = currentState.gameStatus,
                     singlePartHeight = uiSectionSizes.singlePartHeight,

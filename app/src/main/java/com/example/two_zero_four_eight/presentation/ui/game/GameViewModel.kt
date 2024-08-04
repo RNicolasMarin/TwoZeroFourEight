@@ -10,7 +10,11 @@ import com.example.two_zero_four_eight.presentation.design_system.movements.Move
 import com.example.two_zero_four_eight.domain.use_cases.CreateBoardGameUseCase
 import com.example.two_zero_four_eight.domain.use_cases.MoveNumbersUseCase
 import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameEvent.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +28,9 @@ class GameViewModel @Inject constructor(
 
     var state by mutableStateOf(GameState())
         private set
+
+    private val eventChannel = Channel<GameEvent>()
+    val events = eventChannel.receiveAsFlow()
 
     init {
         startNewGame()
@@ -54,15 +61,28 @@ class GameViewModel @Inject constructor(
     }
 
     private fun moveNumbers(direction: MovementDirection) = viewModelScope.launch {
-        if (direction == NONE) return@launch
+        if (direction == NONE || state.currentState.gameStatus == GAME_OVER) return@launch
 
         val newBoard = moveNumbersUseCase.moveNumbers(direction, state)
 
-        state = state.copy(
-            currentState = newBoard.currentState,
-            previousState = newBoard.previousState,
-            originalBestValues = newBoard.originalBestValues
-        )
+        with(newBoard) {
+            state = state.copy(
+                currentState = currentState,
+                previousState = previousState,
+                originalBestValues = originalBestValues
+            )
+
+            when (currentState.gameStatus) {
+                GAME_OVER -> {
+                    eventChannel.send(GameOver(
+                        numberCurrentRecord = currentState.numberCurrentRecord,
+                        scoreCurrentRecord = currentState.scoreCurrentRecord,
+                    ))
+                }
+                YOU_WIN -> {}
+                PLAYING -> {}
+            }
+        }
     }
 
     private fun previousBoard() = viewModelScope.launch {

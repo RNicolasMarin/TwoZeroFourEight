@@ -13,7 +13,8 @@ data class Dimens(
     val currentRecordWidthMax: Dp = 280.dp,
     val currentRecordPaddingHorizontal: Dp = 6.dp,
     val currentRecordPaddingVertical: Dp = 3.dp,
-    val currentRecordPaddingBetween: Dp = 10.dp
+    val currentRecordPaddingBetween: Dp = 10.dp,
+    val winOrLosePadding: Dp = 45.dp
 )
 
 val CompactSmallDimens = Dimens()//phone

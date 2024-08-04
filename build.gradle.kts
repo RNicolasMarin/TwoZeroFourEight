@@ -4,4 +4,5 @@ plugins {
     alias(libs.plugins.jetbrainsKotlin) apply false
     alias(libs.plugins.daggerHilt) apply false
     alias(libs.plugins.devtoolsKsp) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
 }

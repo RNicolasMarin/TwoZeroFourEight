@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlin)
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.devtoolsKsp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -94,5 +95,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    implementation(libs.kotlinx.serialization.json)
 
 }
