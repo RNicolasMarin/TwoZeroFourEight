@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 import com.example.two_zero_four_eight.presentation.ui.game.SingleGameState
 import com.example.two_zero_four_eight.presentation.ui.game.screens.UiSectionSizesLandscape
 
@@ -30,11 +29,5 @@ fun GameScreenLeft(
             isLoading = isLoading,
             modifier = Modifier.height(uiSectionSizes.topHeight)
         )
-        if (uiState.gameStatus != GAME_OVER) {
-            GameScreenBottom(
-                gameStatus = uiState.gameStatus,
-                singlePartHeight = uiSectionSizes.singlePartHeight,
-            )
-        }
     }
 }

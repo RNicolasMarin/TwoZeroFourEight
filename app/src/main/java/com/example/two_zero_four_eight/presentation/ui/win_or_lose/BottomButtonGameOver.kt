@@ -14,8 +14,8 @@ import com.example.two_zero_four_eight.presentation.design_system.dimens
 import com.example.two_zero_four_eight.presentation.ui.game.screens.getUiSectionSizesPortrait
 
 @Composable
-fun BottomButtonLose(
-    goBackToNewGame : () -> Unit
+fun BottomButtonGameOver(
+    goBackFromGameOver : () -> Unit
 ) {
     val innerPadding = MaterialTheme.dimens.innerPadding
     val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimens.outerPadding, true)
@@ -28,7 +28,7 @@ fun BottomButtonLose(
             size = uiSectionSizes.singlePartHeight - innerPadding,
             iconResource = R.drawable.start_again,
             contentDescription = stringResource(id = R.string.start_again_button_description),
-            onClick = goBackToNewGame
+            onClick = goBackFromGameOver
         )
     }
 }

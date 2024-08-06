@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">2048</string>
 
-    <string name="message_game_over">Game over</string>
-    <string name="message_you_win">You win</string>
-    <string name="message_empty" />
-
     <string name="current_record_number_label">Number</string>
     <string name="current_record_score_label">Score</string>
     <string name="current_label">Current</string>
@@ -12,4 +8,6 @@
     <string name="start_again_button_description">Start Again</string>
 
     <string name="game_over_title">¡Game over!</string>
+    <string name="you_win_title">¡You win!</string>
+    <string name="continue_button">Continue</string>
 </resources>

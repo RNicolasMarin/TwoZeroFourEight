@@ -20,12 +20,14 @@ import com.example.two_zero_four_eight.presentation.ui.game.GameEvent.*
 
 @Composable
 fun GameScreenRoot(
-    onGameOver: (CurrentRecordData, CurrentRecordData) -> Unit,
+    onGameOver: (CurrentRecordData, CurrentRecordData, Int) -> Unit,
+    onYouWin: (CurrentRecordData, CurrentRecordData) -> Unit,
     viewModel: GameViewModel = hiltViewModel()
 ){
     ObserveAsEvents(viewModel.events) { event ->
         when (event) {
-            is GameOver -> onGameOver(event.numberCurrentRecord, event.scoreCurrentRecord)
+            is GameOver -> onGameOver(event.numberCurrentRecord, event.scoreCurrentRecord, event.numberToWin)
+            is YouWin -> onYouWin(event.numberCurrentRecord, event.scoreCurrentRecord)
         }
     }
     GameScreen(

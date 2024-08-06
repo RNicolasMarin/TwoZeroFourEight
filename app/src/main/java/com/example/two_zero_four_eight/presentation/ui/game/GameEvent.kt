@@ -6,6 +6,12 @@ sealed interface GameEvent {
 
     data class GameOver(
         val numberCurrentRecord: CurrentRecordData,
+        val scoreCurrentRecord: CurrentRecordData,
+        val numberToWin: Int
+    ): GameEvent
+
+    data class YouWin(
+        val numberCurrentRecord: CurrentRecordData,
         val scoreCurrentRecord: CurrentRecordData
     ): GameEvent
 }

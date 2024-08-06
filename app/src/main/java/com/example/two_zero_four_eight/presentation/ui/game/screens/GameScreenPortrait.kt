@@ -18,14 +18,12 @@ import com.example.two_zero_four_eight.presentation.ui.game.SingleGameState
 import com.example.two_zero_four_eight.presentation.ui.game.components.BoardGame
 import com.example.two_zero_four_eight.presentation.design_system.Green7
 import com.example.two_zero_four_eight.presentation.design_system.dimens
-import com.example.two_zero_four_eight.presentation.ui.game.components.GameScreenBottom
 import com.example.two_zero_four_eight.presentation.ui.game.components.GameScreenBottomButtons
 import com.example.two_zero_four_eight.presentation.ui.game.components.GameScreenTop
 import com.example.two_zero_four_eight.presentation.design_system.movements.DragGesturesDirectionDetector
 import com.example.two_zero_four_eight.presentation.design_system.movements.MovementDirection
 import com.example.two_zero_four_eight.presentation.ui.game.GameAction
 import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
-import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 
 @Composable
 fun GameScreenPortrait(
@@ -61,13 +59,6 @@ fun GameScreenPortrait(
                 isLoading = isLoading,
                 modifier = Modifier.height(uiSectionSizes.boardGameHeight)
             )
-
-            if (showAllSections && currentState.gameStatus != GAME_OVER) {
-                GameScreenBottom(
-                    gameStatus = currentState.gameStatus,
-                    singlePartHeight = uiSectionSizes.singlePartHeight,
-                )
-            }
         }
         DragGesturesDirectionDetector(
             modifier = Modifier.fillMaxSize(),

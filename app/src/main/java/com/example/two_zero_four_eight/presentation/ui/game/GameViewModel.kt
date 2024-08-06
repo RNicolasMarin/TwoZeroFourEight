@@ -61,7 +61,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun moveNumbers(direction: MovementDirection) = viewModelScope.launch {
-        if (direction == NONE || state.currentState.gameStatus == GAME_OVER) return@launch
+        if (direction == NONE || state.currentState.gameStatus != PLAYING) return@launch
 
         val newBoard = moveNumbersUseCase.moveNumbers(direction, state)
 
@@ -72,15 +72,23 @@ class GameViewModel @Inject constructor(
                 originalBestValues = originalBestValues
             )
 
-            when (currentState.gameStatus) {
-                GAME_OVER -> {
-                    eventChannel.send(GameOver(
-                        numberCurrentRecord = currentState.numberCurrentRecord,
-                        scoreCurrentRecord = currentState.scoreCurrentRecord,
-                    ))
+            with(currentState) {
+                when (gameStatus) {
+                    GAME_OVER -> {
+                        eventChannel.send(GameOver(
+                            numberCurrentRecord = numberCurrentRecord,
+                            scoreCurrentRecord = scoreCurrentRecord,
+                            numberToWin = numberToWin
+                        ))
+                    }
+                    YOU_WIN -> {
+                        eventChannel.send(YouWin(
+                            numberCurrentRecord = numberCurrentRecord,
+                            scoreCurrentRecord = scoreCurrentRecord,
+                        ))
+                    }
+                    PLAYING -> {}
                 }
-                YOU_WIN -> {}
-                PLAYING -> {}
             }
         }
     }
@@ -91,6 +99,14 @@ class GameViewModel @Inject constructor(
         state = state.copy(
             currentState = previous.copy(),
             previousState = null,
+        )
+    }
+
+    fun updateCurrentGameStatus(status: GameStatus) {
+        state = state.copy(
+            currentState = state.currentState.apply {
+                gameStatus = status
+            }
         )
     }
 }

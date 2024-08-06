@@ -7,12 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.example.two_zero_four_eight.domain.models.CurrentRecordData
-import com.example.two_zero_four_eight.presentation.ui.Screen.Game
-import com.example.two_zero_four_eight.presentation.ui.Screen.WinOrLose
+import com.example.two_zero_four_eight.presentation.ui.Screen.*
 import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 import com.example.two_zero_four_eight.presentation.ui.game.GameViewModel
 import com.example.two_zero_four_eight.presentation.ui.game.screens.GameScreenRoot
-import com.example.two_zero_four_eight.presentation.ui.win_or_lose.BottomButtonLose
+import com.example.two_zero_four_eight.presentation.ui.win_or_lose.BottomButtonGameOver
+import com.example.two_zero_four_eight.presentation.ui.win_or_lose.BottomButtonYouWin
 import com.example.two_zero_four_eight.presentation.ui.win_or_lose.WinOrLoseScreen
 
 @Composable
@@ -21,9 +22,14 @@ fun NavigationRoot(
 ) {
     val viewModel: GameViewModel = viewModel()
 
-    val goBackToNewGame : () -> Unit = {
+    val goBackFromGameOver : () -> Unit = {
         navController.popBackStack()
         viewModel.onAction(OnStartGame)
+    }
+
+    val goBackFromYouWin : () -> Unit = {
+        navController.popBackStack()
+        viewModel.updateCurrentGameStatus(PLAYING)
     }
 
     NavHost(
@@ -33,9 +39,20 @@ fun NavigationRoot(
         composable<Game> {
             GameScreenRoot(
                 viewModel = viewModel,
-                onGameOver = { numbers, scores ->
+                onGameOver = { numbers, scores, numberToWin ->
                     navController.navigate(
-                        WinOrLose(
+                        GameOver(
+                            currentScore = scores.currentValue,
+                            recordScore = scores.recordValue,
+                            currentNumber = numbers.currentValue,
+                            recordNumber = numbers.recordValue,
+                            numberToWin = numberToWin
+                        )
+                    )
+                },
+                onYouWin = { numbers, scores ->
+                    navController.navigate(
+                        YouWin(
                             currentScore = scores.currentValue,
                             recordScore = scores.recordValue,
                             currentNumber = numbers.currentValue,
@@ -45,16 +62,32 @@ fun NavigationRoot(
                 }
             )
         }
-        composable<WinOrLose> {
-            val args = it.toRoute<WinOrLose>()
+        composable<GameOver> {
+            val args = it.toRoute<GameOver>()
             WinOrLoseScreen(
                 titleRes = R.string.game_over_title,
+                numberToShow = args.numberToWin,
                 numberCurrentRecord = CurrentRecordData(args.currentNumber, args.recordNumber),
                 scoreCurrentRecord = CurrentRecordData(args.currentScore, args.recordScore),
-                onBackButtonPressed = goBackToNewGame,
+                onBackButtonPressed = goBackFromGameOver,
                 bottomButton = {
-                    BottomButtonLose(
-                        goBackToNewGame = goBackToNewGame
+                    BottomButtonGameOver(
+                        goBackFromGameOver = goBackFromGameOver
+                    )
+                }
+            )
+        }
+        composable<YouWin> {
+            val args = it.toRoute<YouWin>()
+            WinOrLoseScreen(
+                titleRes = R.string.you_win_title,
+                numberToShow = args.currentNumber,
+                numberCurrentRecord = CurrentRecordData(args.currentNumber, args.recordNumber),
+                scoreCurrentRecord = CurrentRecordData(args.currentScore, args.recordScore),
+                onBackButtonPressed = goBackFromYouWin,
+                bottomButton = {
+                    BottomButtonYouWin(
+                        goBackFromYouWin = goBackFromYouWin
                     )
                 }
             )

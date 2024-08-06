@@ -27,6 +27,7 @@ import com.example.two_zero_four_eight.presentation.design_system.dimens
 @Composable
 fun WinOrLoseScreen(
     @StringRes titleRes: Int,
+    numberToShow: Int,
     numberCurrentRecord: CurrentRecordData,
     scoreCurrentRecord: CurrentRecordData,
     onBackButtonPressed: () -> Unit,
@@ -54,6 +55,7 @@ fun WinOrLoseScreen(
         Spacer(modifier = Modifier.height(50.dp))
 
         AppName(
+            text = turnNumberToAtLeastFourDigits(numberToShow.toString()),
             modifier = Modifier.height(110.dp)
         )
 
@@ -86,5 +88,13 @@ fun WinOrLoseScreen(
         )
 
         bottomButton()
+    }
+}
+
+fun turnNumberToAtLeastFourDigits(number: String): String {
+    return when (number.length) {
+        1 -> "  $number  "
+        2, 3 -> " $number "
+        else -> number
     }
 }
