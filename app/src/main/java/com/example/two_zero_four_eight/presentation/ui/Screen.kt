@@ -5,6 +5,9 @@ import kotlinx.serialization.Serializable
 sealed class Screen {
 
     @Serializable
+    data object Menu: Screen()
+
+    @Serializable
     data object Game: Screen()
 
     @Serializable

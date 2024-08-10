@@ -12,6 +12,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -27,6 +29,8 @@ fun IconButton(
     size: Dp,
     contentDescription: String,
     @DrawableRes iconResource: Int,
+    invert: Boolean = false,
+    rotate: Float = 0f,
     modifier: Modifier = Modifier,
 ) {
 
@@ -52,7 +56,10 @@ fun IconButton(
             painter = painterResource(iconResource),
             contentDescription = contentDescription,
             tint = White,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer(scaleX = if (invert) -1f else 1f)
+                .rotate(rotate)
         )
     }
 }

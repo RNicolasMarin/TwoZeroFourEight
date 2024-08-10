@@ -25,7 +25,7 @@ class CreateBoardGameUseCase @Inject constructor(
      * Finally makes the request to get the record number and record score for that
      * board size and creates the current state.
      * **/
-    suspend fun createBoardGame(previousState: SingleGameState, size: Int): GameState {
+    suspend fun createBoardGame(previousState: SingleGameState, size: Int, deletePreviousState: Boolean = false): GameState {
         var boardGame = MutableList(size) { //rows
             MutableList(size) { //cells
                 DEFAULT_VALUE
@@ -42,7 +42,7 @@ class CreateBoardGameUseCase @Inject constructor(
 
         return GameState(
             //if there's a previous state it uses it, if not sets a null
-            previousState = if (previousState.board.isEmpty() || previousState.gameStatus == GAME_OVER) null else previousState,
+            previousState = if (previousState.board.isEmpty() || previousState.gameStatus == GAME_OVER || deletePreviousState) null else previousState,
             currentState = SingleGameState(
                 board = boardGame,
                 gameStatus = PLAYING,

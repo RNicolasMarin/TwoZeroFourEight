@@ -12,6 +12,7 @@ import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
 import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 import com.example.two_zero_four_eight.presentation.ui.game.GameViewModel
 import com.example.two_zero_four_eight.presentation.ui.game.screens.GameScreenRoot
+import com.example.two_zero_four_eight.presentation.ui.menu.MenuScreenRoot
 import com.example.two_zero_four_eight.presentation.ui.win_or_lose.BottomButtonGameOver
 import com.example.two_zero_four_eight.presentation.ui.win_or_lose.BottomButtonYouWin
 import com.example.two_zero_four_eight.presentation.ui.win_or_lose.WinOrLoseScreen
@@ -24,7 +25,7 @@ fun NavigationRoot(
 
     val goBackFromGameOver : () -> Unit = {
         navController.popBackStack()
-        viewModel.onAction(OnStartGame)
+        viewModel.onAction(OnStartGame())
     }
 
     val goBackFromYouWin : () -> Unit = {
@@ -34,8 +35,19 @@ fun NavigationRoot(
 
     NavHost(
         navController = navController,
-        startDestination = Game
+        startDestination = Menu
     ) {
+        composable<Menu> {
+            MenuScreenRoot(
+                onStartGame = { size ->
+                    viewModel.onAction(OnStartGame(
+                        size = size,
+                        deletePreviousState = true
+                    ))
+                    navController.navigate(Game)
+                }
+            )
+        }
         composable<Game> {
             GameScreenRoot(
                 viewModel = viewModel,

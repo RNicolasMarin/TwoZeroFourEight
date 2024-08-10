@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">2048</string>
 
+    <string name="button_start_game">Start Game</string>
+    <string name="button_best_scores">Best Scores</string>
+
     <string name="current_record_number_label">Number</string>
     <string name="current_record_score_label">Score</string>
     <string name="current_label">Current</string>

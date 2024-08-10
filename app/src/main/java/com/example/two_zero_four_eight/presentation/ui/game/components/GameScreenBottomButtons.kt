@@ -47,7 +47,7 @@ fun GameScreenBottomButtons(
             iconResource = R.drawable.start_again,
             contentDescription = stringResource(id = R.string.start_again_button_description),
             onClick = {
-                onAction(OnStartGame)
+                onAction(OnStartGame())
             }
         )
     }

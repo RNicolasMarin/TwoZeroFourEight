@@ -9,7 +9,8 @@ data class GameState(
     var currentState: SingleGameState = SingleGameState(),
     var previousState: SingleGameState? = null,
     var originalBestValues: IndividualBestValues = IndividualBestValues(),
-    var isLoading: Boolean = false
+    var isLoading: Boolean = false,
+    var boardSize: Int = -1
 )
 
 data class SingleGameState(

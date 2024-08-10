@@ -32,25 +32,24 @@ class GameViewModel @Inject constructor(
     private val eventChannel = Channel<GameEvent>()
     val events = eventChannel.receiveAsFlow()
 
-    init {
-        startNewGame()
-    }
-
     fun onAction(action: GameAction) {
         when(action) {
             is OnMoveNumbers -> moveNumbers(action.direction)
             OnPreviousBoard -> previousBoard()
-            OnStartGame -> startNewGame()
+            is OnStartGame -> startNewGame(action.size, action.deletePreviousState)
         }
     }
 
-    private fun startNewGame() = viewModelScope.launch {
+    private fun startNewGame(size: Int, deletePreviousState: Boolean = false) = viewModelScope.launch {
+        val sizeToUse = if (size != -1) size else state.boardSize
+
         state = state.copy(
+            boardSize = sizeToUse,
             isLoading = true
         )
 
         val current = state.currentState
-        val newBoard = boardGameUseCases.createBoardGame(current, 3)
+        val newBoard = boardGameUseCases.createBoardGame(current, sizeToUse, deletePreviousState)
 
         state = state.copy(
             currentState = newBoard.currentState,
