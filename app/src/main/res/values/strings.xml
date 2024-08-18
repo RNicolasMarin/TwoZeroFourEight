@@ -2,7 +2,7 @@
     <string name="app_name">2048</string>
 
     <string name="button_start_game">Start Game</string>
-    <string name="button_best_scores">Best Scores</string>
+    <string name="button_records">Records</string>
 
     <string name="current_record_number_label">Number</string>
     <string name="current_record_score_label">Score</string>
@@ -13,4 +13,8 @@
     <string name="game_over_title">¡Game over!</string>
     <string name="you_win_title">¡You win!</string>
     <string name="continue_button">Continue</string>
+    <string name="all">All</string>
+    <string name="number">Number</string>
+    <string name="score">Score</string>
+    <string name="by">By</string>
 </resources>

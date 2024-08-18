@@ -13,6 +13,7 @@ import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 import com.example.two_zero_four_eight.presentation.ui.game.GameViewModel
 import com.example.two_zero_four_eight.presentation.ui.game.screens.GameScreenRoot
 import com.example.two_zero_four_eight.presentation.ui.menu.MenuScreenRoot
+import com.example.two_zero_four_eight.presentation.ui.records.RecordsScreenRoot
 import com.example.two_zero_four_eight.presentation.ui.win_or_lose.BottomButtonGameOver
 import com.example.two_zero_four_eight.presentation.ui.win_or_lose.BottomButtonYouWin
 import com.example.two_zero_four_eight.presentation.ui.win_or_lose.WinOrLoseScreen
@@ -45,8 +46,14 @@ fun NavigationRoot(
                         deletePreviousState = true
                     ))
                     navController.navigate(Game)
+                },
+                onRecords = {
+                    navController.navigate(Records)
                 }
             )
+        }
+        composable<Records> {
+            RecordsScreenRoot()
         }
         composable<Game> {
             GameScreenRoot(

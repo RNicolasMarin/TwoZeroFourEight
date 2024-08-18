@@ -8,6 +8,9 @@ sealed class Screen {
     data object Menu: Screen()
 
     @Serializable
+    data object Records: Screen()
+
+    @Serializable
     data object Game: Screen()
 
     @Serializable

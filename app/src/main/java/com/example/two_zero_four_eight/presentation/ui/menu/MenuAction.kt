@@ -9,4 +9,6 @@ sealed interface MenuAction {
     data class OnStartGame(
         val size: Int
     ) : MenuAction
+
+    data object OnRecords : MenuAction
 }

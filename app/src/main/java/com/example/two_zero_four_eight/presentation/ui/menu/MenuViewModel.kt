@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.two_zero_four_eight.domain.models.next
+import com.example.two_zero_four_eight.domain.models.previous
 import com.example.two_zero_four_eight.presentation.ui.menu.MenuAction.*
 import kotlinx.coroutines.launch
 

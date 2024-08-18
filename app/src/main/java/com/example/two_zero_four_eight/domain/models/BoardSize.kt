@@ -1,4 +1,4 @@
-package com.example.two_zero_four_eight.presentation.ui.menu
+package com.example.two_zero_four_eight.domain.models
 
 import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
 

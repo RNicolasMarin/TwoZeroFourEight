@@ -31,6 +31,7 @@ import com.example.two_zero_four_eight.presentation.ui.menu.MenuAction.*
 @Composable
 fun MenuScreenRoot(
     onStartGame: (Int) -> Unit,
+    onRecords: () -> Unit,
     viewModel: MenuViewModel = hiltViewModel()
 ) {
     MenuScreen(
@@ -38,6 +39,7 @@ fun MenuScreenRoot(
         onAction = { action ->
             when (action) {
                 is OnStartGame -> onStartGame(action.size)
+                is OnRecords -> onRecords()
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -116,10 +118,10 @@ fun MenuScreen(
         Spacer(modifier = Modifier.height(25.dp))
 
         WideButton(
-            text = stringResource(id = R.string.button_best_scores),
+            text = stringResource(id = R.string.button_records),
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-
+                onAction(OnRecords)
             }
         )
     }
