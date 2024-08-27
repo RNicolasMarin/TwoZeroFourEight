@@ -17,4 +17,5 @@
     <string name="number">Number</string>
     <string name="score">Score</string>
     <string name="by">By</string>
+    <string name="no_records">No Records</string>
 </resources>

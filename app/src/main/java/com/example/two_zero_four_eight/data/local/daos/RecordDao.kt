@@ -22,4 +22,10 @@ interface RecordDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateRecord(record: RecordValues)
+
+    @Query("SELECT * FROM records WHERE boardSize IN (:sizes) ORDER BY score DESC")
+    suspend fun getRecordsWithSizesAndSortedByScore(sizes: List<Int>): List<RecordValues>
+
+    @Query("SELECT * FROM records WHERE boardSize IN (:sizes) ORDER BY number DESC")
+    suspend fun getRecordsWithSizesAndSortedByNumber(sizes: List<Int>): List<RecordValues>
 }

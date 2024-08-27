@@ -56,6 +56,13 @@ val CompactSmallTypography = Typography(//phone
         lineHeight = 18.sp,
         letterSpacing = 0.5.sp
     ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 12.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 0.5.sp
+    ),
 )
 val CompactMediumTypography = Typography(//emulator
     displayLarge = TextStyle(

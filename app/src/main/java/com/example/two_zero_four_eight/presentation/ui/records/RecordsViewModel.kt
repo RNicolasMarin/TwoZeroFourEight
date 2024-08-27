@@ -6,42 +6,70 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.two_zero_four_eight.domain.models.BoardSize
+import com.example.two_zero_four_eight.domain.repositories.RecordRepository
 import com.example.two_zero_four_eight.presentation.ui.records.RecordsAction.*
 import com.example.two_zero_four_eight.presentation.ui.records.components.FilterOption
 import com.example.two_zero_four_eight.presentation.ui.records.components.RecordsButtonsState
 import com.example.two_zero_four_eight.presentation.ui.records.components.RecordsButtonsState.*
 import com.example.two_zero_four_eight.presentation.ui.records.components.Sort
+import com.example.two_zero_four_eight.presentation.ui.records.components.Sort.*
 import com.example.two_zero_four_eight.presentation.ui.records.components.SortOption
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecordsViewModel : ViewModel() {
+@HiltViewModel
+class RecordsViewModel @Inject constructor(
+    private val repository: RecordRepository
+): ViewModel() {
 
     var state by mutableStateOf(RecordsState())
         private set
 
+    private var allFilterOptionNumbers: List<Int> = emptyList()
+
     init {
         val filterOptions = BoardSize.entries.map { FilterOption(it, false) }
-        val sortOptions   = Sort.entries.map { SortOption(it, it == Sort.NUMBER) }
+        val sortOptions   = Sort.entries.map { SortOption(it, it == NUMBER) }
+
+        allFilterOptionNumbers = filterOptions.map { it.size.size }
 
         viewModelScope.launch {
             state = state.copy(
                 filterOptions = filterOptions,
-                sortOptions = sortOptions
+                sortOptions = sortOptions,
+                isLoading = true
             )
+            loadRecords(filterOptions, state.selectedSortOption)
         }
+    }
+
+    private suspend fun loadRecords(filterOptions: List<FilterOption>, sort: Sort) {
+        val filters = if (filterOptions.isEmpty()) allFilterOptionNumbers else filterOptions.map { it.size.size }
+        val records = when (sort) {
+            NUMBER -> repository.getRecordsWithSizesAndSortedByNumber(filters)
+            SCORE -> repository.getRecordsWithSizesAndSortedByScore(filters)
+        }
+        state = state.copy(
+            isLoading = false,
+            records = records
+        )
     }
 
     fun onAction(action: RecordsAction) = viewModelScope.launch {
         when (action) {
             is OnFilterChecked -> {
+                val filterOptions = state.filterOptions.mapIndexed { index, filterOption ->
+                    val selected = filterOption.selected
+                    filterOption.copy(
+                        selected = if (index == action.position) !selected else selected
+                    )
+                }
                 state = state.copy(
-                    filterOptions = state.filterOptions.mapIndexed { index, filterOption ->
-                        val selected = filterOption.selected
-                        filterOption.copy(
-                            selected = if (index == action.position) !selected else selected
-                        )
-                    }
+                    filterOptions = filterOptions,
+                    isLoading = true
                 )
+                loadRecords(filterOptions.filter { it.selected }, state.selectedSortOption)
             }
 
             is OnSortChecked -> {
@@ -56,8 +84,10 @@ class RecordsViewModel : ViewModel() {
                             selected = index == action.position
                         )
                     },
-                    selectedSortOption = option.sort
+                    selectedSortOption = option.sort,
+                    isLoading = true
                 )
+                loadRecords(state.filterOptions.filter { it.selected }, option.sort)
             }
 
             is OnButtonStateChanged -> {
