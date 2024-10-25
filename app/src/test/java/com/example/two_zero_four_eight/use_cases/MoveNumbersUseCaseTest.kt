@@ -1,12 +1,12 @@
 package com.example.two_zero_four_eight.use_cases
 
 import com.example.two_zero_four_eight.domain.models.CurrentRecordData
-import com.example.two_zero_four_eight.presentation.ui.game.GameState
-import com.example.two_zero_four_eight.presentation.ui.game.GameStatus
-import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
+import com.example.two_zero_four_eight.presentation_old.ui.game.GameState
+import com.example.two_zero_four_eight.presentation_old.ui.game.GameStatus
+import com.example.two_zero_four_eight.presentation_old.ui.game.GameStatus.*
 import com.example.two_zero_four_eight.domain.models.IndividualBestValues
 import com.example.two_zero_four_eight.data.local.entities.RecordValues
-import com.example.two_zero_four_eight.presentation.ui.game.SingleGameState
+import com.example.two_zero_four_eight.presentation_old.ui.game.SingleGameState
 import com.example.two_zero_four_eight.domain.repositories.RecordRepository
 import com.example.two_zero_four_eight.domain.use_cases.AddNumberToBoardGameUseCase
 import com.example.two_zero_four_eight.domain.use_cases.CombineAndMoveNumbersUseCase
@@ -15,7 +15,7 @@ import com.example.two_zero_four_eight.domain.use_cases.HasWonTheGameUseCase
 import com.example.two_zero_four_eight.domain.use_cases.IsTherePossibleMovesUseCase
 import com.example.two_zero_four_eight.domain.use_cases.MoveNumbersUseCase
 import com.example.two_zero_four_eight.domain.use_cases.UpdateCurrentRecordsUseCase
-import com.example.two_zero_four_eight.presentation.design_system.movements.MovementDirection.*
+import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection.*
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.mockk

@@ -1,0 +1,14 @@
+package com.example.two_zero_four_eight.presentation_old.ui.menu
+
+sealed interface MenuAction {
+
+    data object OnNextSize : MenuAction
+
+    data object OnPreviousSize : MenuAction
+
+    data class OnStartGame(
+        val size: Int
+    ) : MenuAction
+
+    data object OnRecords : MenuAction
+}
