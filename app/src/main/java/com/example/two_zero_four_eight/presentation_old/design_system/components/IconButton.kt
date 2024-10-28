@@ -21,7 +21,7 @@ import com.example.two_zero_four_eight.presentation_old.design_system.Black
 import com.example.two_zero_four_eight.presentation_old.design_system.Green1
 import com.example.two_zero_four_eight.presentation_old.design_system.Green3
 import com.example.two_zero_four_eight.presentation_old.design_system.White
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 
 @Composable
 fun IconButton(
@@ -39,12 +39,12 @@ fun IconButton(
         modifier = modifier
             .size(size)
             .border(
-                shape = RoundedCornerShape(MaterialTheme.dimens.corners),
+                shape = RoundedCornerShape(MaterialTheme.dimensOld.corners),
                 color = Black,
                 width = 1.dp
             ),
-        shape = RoundedCornerShape(MaterialTheme.dimens.corners),
-        contentPadding = PaddingValues(MaterialTheme.dimens.innerPadding),
+        shape = RoundedCornerShape(MaterialTheme.dimensOld.corners),
+        contentPadding = PaddingValues(MaterialTheme.dimensOld.innerPadding),
         colors = ButtonDefaults.buttonColors(
             containerColor = Green3,
             contentColor = Black,

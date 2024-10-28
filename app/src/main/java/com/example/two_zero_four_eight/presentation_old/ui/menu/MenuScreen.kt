@@ -18,23 +18,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.two_zero_four_eight.R
+import com.example.two_zero_four_eight.presentation.ui.menu.MenuAction
 import com.example.two_zero_four_eight.presentation_old.design_system.Green7
 import com.example.two_zero_four_eight.presentation_old.design_system.components.AppName
 import com.example.two_zero_four_eight.presentation_old.design_system.components.IconButton
 import com.example.two_zero_four_eight.presentation_old.design_system.components.WideButton
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection
-import com.example.two_zero_four_eight.presentation_old.ui.game.components.BoardGame
+import com.example.two_zero_four_eight.presentation_old.ui.game.components.BoardGameOld
 import com.example.two_zero_four_eight.presentation_old.ui.game.screens.getUiSectionSizesPortrait
-import com.example.two_zero_four_eight.presentation_old.ui.menu.MenuAction.*
+import com.example.two_zero_four_eight.presentation.ui.menu.MenuAction.*
+import com.example.two_zero_four_eight.presentation.ui.menu.MenuState
+import com.example.two_zero_four_eight.presentation.ui.menu.MenuViewModel
 
 @Composable
-fun MenuScreenRoot(
+fun MenuScreenRootOld(
     onStartGame: (Int) -> Unit,
     onRecords: () -> Unit,
     viewModel: MenuViewModel = hiltViewModel()
 ) {
-    MenuScreen(
+    MenuScreenOld(
         state = viewModel.state,
         onAction = { action ->
             when (action) {
@@ -48,23 +51,23 @@ fun MenuScreenRoot(
 }
 
 @Composable
-fun MenuScreen(
+fun MenuScreenOld(
     state: MenuState,
     onAction: (MenuAction) -> Unit
 ) {
-    val innerPadding = MaterialTheme.dimens.innerPadding
-    val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimens.outerPadding, true)
+    val innerPadding = MaterialTheme.dimensOld.innerPadding
+    val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimensOld.outerPadding, true)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Green7)
-            .padding(MaterialTheme.dimens.winOrLosePadding),
+            .padding(MaterialTheme.dimensOld.winOrLosePadding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
 
-        BoardGame(
+        BoardGameOld(
             tableData = state.boardSize.cells,
             currentDirection = MovementDirection.NONE,
             boardGameSize = 270.dp,

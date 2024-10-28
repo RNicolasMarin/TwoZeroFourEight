@@ -16,7 +16,7 @@ import com.example.two_zero_four_eight.R
 import com.example.two_zero_four_eight.domain.models.CurrentRecordData
 import com.example.two_zero_four_eight.presentation_old.design_system.components.AppName
 import com.example.two_zero_four_eight.presentation_old.design_system.components.CurrentRecord
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 
 /**
  * It renders the top part of the screen on Portrait mode or the top of the left side of the screen on Landscape mode.
@@ -29,7 +29,7 @@ fun GameScreenTop(
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val outerPadding = MaterialTheme.dimens.outerPadding
+    val outerPadding = MaterialTheme.dimensOld.outerPadding
     Column(
         modifier = modifier.fillMaxWidth()
             .padding(
@@ -53,8 +53,8 @@ fun GameScreenTop(
                 isLoading = isLoading,
                 modifier = Modifier
                     .widthIn(
-                        min = MaterialTheme.dimens.currentRecordWidthMin,
-                        max = MaterialTheme.dimens.currentRecordWidthMax
+                        min = MaterialTheme.dimensOld.currentRecordWidthMin,
+                        max = MaterialTheme.dimensOld.currentRecordWidthMax
                     )
                     .height(singlePartHeight - outerPadding)
             )
@@ -67,8 +67,8 @@ fun GameScreenTop(
                 isLoading = isLoading,
                 modifier = Modifier
                     .widthIn(
-                        min = MaterialTheme.dimens.currentRecordWidthMin,
-                        max = MaterialTheme.dimens.currentRecordWidthMax
+                        min = MaterialTheme.dimensOld.currentRecordWidthMin,
+                        max = MaterialTheme.dimensOld.currentRecordWidthMax
                     )
                     .height(singlePartHeight - outerPadding),
             )

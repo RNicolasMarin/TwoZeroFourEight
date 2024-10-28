@@ -29,7 +29,7 @@ import com.example.two_zero_four_eight.presentation_old.design_system.Green1
 import com.example.two_zero_four_eight.presentation_old.design_system.Green2
 import com.example.two_zero_four_eight.presentation_old.design_system.Green3
 import com.example.two_zero_four_eight.presentation_old.design_system.White
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.ui.records.RecordsAction
 import com.example.two_zero_four_eight.presentation_old.ui.records.RecordsAction.*
 import com.example.two_zero_four_eight.presentation_old.ui.records.RecordsState
@@ -94,7 +94,7 @@ fun <T>RecordsButtonOptions(
     getText: @Composable (T) -> String,
     onAction: (Int) -> Unit,
 ) {
-    val corners = MaterialTheme.dimens.corners
+    val corners = MaterialTheme.dimensOld.corners
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(columns),
@@ -166,7 +166,7 @@ fun RecordsButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val corners = MaterialTheme.dimens.corners
+    val corners = MaterialTheme.dimensOld.corners
 
     Column (
         modifier = modifier

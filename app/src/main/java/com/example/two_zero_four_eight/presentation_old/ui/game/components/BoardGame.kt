@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.two_zero_four_eight.presentation_old.design_system.Black
 import com.example.two_zero_four_eight.presentation_old.design_system.Grey2
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection
 import com.example.two_zero_four_eight.presentation_old.design_system.shimmerEffect
 import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
@@ -31,15 +31,15 @@ import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
  * [currentDirection] is needed to refresh the board. Check how to fix this bug.
  * **/
 @Composable
-fun BoardGame(
+fun BoardGameOld(
     tableData: List<List<Int>>,
     currentDirection: MovementDirection,
     boardGameSize: Dp,
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val boardInnerPadding = MaterialTheme.dimens.boardInnerPadding
-    val shape = RoundedCornerShape(MaterialTheme.dimens.corners)
+    val boardInnerPadding = MaterialTheme.dimensOld.boardInnerPadding
+    val shape = RoundedCornerShape(MaterialTheme.dimensOld.corners)
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
@@ -89,17 +89,17 @@ fun BoardGameCell(cellNumber: Int, uiCellSize: Dp) {
     Box(modifier = Modifier
         .width(uiCellSize)
         .height(uiCellSize)
-        .padding(MaterialTheme.dimens.boardInnerPadding)
+        .padding(MaterialTheme.dimensOld.boardInnerPadding)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    shape = RoundedCornerShape(MaterialTheme.dimens.corners),
+                    shape = RoundedCornerShape(MaterialTheme.dimensOld.corners),
                     color = cellData.backgroundColor
                 )
                 .border(
-                    shape = RoundedCornerShape(MaterialTheme.dimens.corners),
+                    shape = RoundedCornerShape(MaterialTheme.dimensOld.corners),
                     color = Black,
                     width = 1.dp
                 ),

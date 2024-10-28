@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import com.example.two_zero_four_eight.R
 import com.example.two_zero_four_eight.presentation_old.design_system.components.IconButton
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction
 import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction.*
 
@@ -24,7 +24,7 @@ fun GameScreenBottomButtons(
     onAction: (GameAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val innerPadding = MaterialTheme.dimens.innerPadding
+    val innerPadding = MaterialTheme.dimensOld.innerPadding
     val offset = topHeight + boardGameHeight + innerPadding
     Row(
         horizontalArrangement = Arrangement.Center,

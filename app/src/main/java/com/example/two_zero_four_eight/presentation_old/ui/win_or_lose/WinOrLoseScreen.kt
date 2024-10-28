@@ -22,7 +22,7 @@ import com.example.two_zero_four_eight.presentation_old.design_system.Black
 import com.example.two_zero_four_eight.presentation_old.design_system.Green7
 import com.example.two_zero_four_eight.presentation_old.design_system.components.AppName
 import com.example.two_zero_four_eight.presentation_old.design_system.components.CurrentRecord
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 
 @Composable
 fun WinOrLoseScreen(
@@ -42,7 +42,7 @@ fun WinOrLoseScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Green7)
-            .padding(MaterialTheme.dimens.winOrLosePadding),
+            .padding(MaterialTheme.dimensOld.winOrLosePadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -67,8 +67,8 @@ fun WinOrLoseScreen(
             isLoading = false,
             modifier = Modifier
                 .widthIn(
-                    min = MaterialTheme.dimens.currentRecordWidthMin,
-                    max = MaterialTheme.dimens.currentRecordWidthMax
+                    min = MaterialTheme.dimensOld.currentRecordWidthMin,
+                    max = MaterialTheme.dimensOld.currentRecordWidthMax
                 )
                 .height(50.dp)
         )
@@ -81,8 +81,8 @@ fun WinOrLoseScreen(
             isLoading = false,
             modifier = Modifier
                 .widthIn(
-                    min = MaterialTheme.dimens.currentRecordWidthMin,
-                    max = MaterialTheme.dimens.currentRecordWidthMax
+                    min = MaterialTheme.dimensOld.currentRecordWidthMin,
+                    max = MaterialTheme.dimensOld.currentRecordWidthMax
                 )
                 .height(50.dp)
         )

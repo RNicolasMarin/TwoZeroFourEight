@@ -10,15 +10,15 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import com.example.two_zero_four_eight.R
 import com.example.two_zero_four_eight.presentation_old.design_system.components.IconButton
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.ui.game.screens.getUiSectionSizesPortrait
 
 @Composable
 fun BottomButtonGameOver(
     goBackFromGameOver : () -> Unit
 ) {
-    val innerPadding = MaterialTheme.dimens.innerPadding
-    val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimens.outerPadding, true)
+    val innerPadding = MaterialTheme.dimensOld.innerPadding
+    val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimensOld.outerPadding, true)
 
     Box(
         modifier = Modifier.fillMaxSize(),

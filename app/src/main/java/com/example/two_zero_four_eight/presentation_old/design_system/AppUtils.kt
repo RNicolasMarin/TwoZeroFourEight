@@ -34,7 +34,7 @@ private val LocalAppIsBothCompact = staticCompositionLocalOf {
     false
 }
 
-val MaterialTheme.dimens: Dimens
+val MaterialTheme.dimensOld: Dimens
     @Composable
     get() = LocalAppDimens.current
 

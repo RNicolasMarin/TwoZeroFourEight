@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.two_zero_four_eight.R
 import com.example.two_zero_four_eight.presentation_old.design_system.Green2
 import com.example.two_zero_four_eight.presentation_old.design_system.White
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 
 @Composable
 fun AppName(
@@ -24,7 +24,7 @@ fun AppName(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .background(
-                shape = RoundedCornerShape(MaterialTheme.dimens.corners),
+                shape = RoundedCornerShape(MaterialTheme.dimensOld.corners),
                 color = Green2
             )
     ) {
@@ -33,7 +33,7 @@ fun AppName(
             color = White,
             style = MaterialTheme.typography.displayMedium,
             modifier = Modifier
-                .padding(horizontal = MaterialTheme.dimens.nameHorizontalPadding)
+                .padding(horizontal = MaterialTheme.dimensOld.nameHorizontalPadding)
         )
     }
 }

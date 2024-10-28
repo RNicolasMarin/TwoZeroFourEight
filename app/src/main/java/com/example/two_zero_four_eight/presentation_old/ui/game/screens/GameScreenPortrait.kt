@@ -15,9 +15,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.two_zero_four_eight.presentation_old.ui.game.SingleGameState
-import com.example.two_zero_four_eight.presentation_old.ui.game.components.BoardGame
+import com.example.two_zero_four_eight.presentation_old.ui.game.components.BoardGameOld
 import com.example.two_zero_four_eight.presentation_old.design_system.Green7
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.ui.game.components.GameScreenBottomButtons
 import com.example.two_zero_four_eight.presentation_old.ui.game.components.GameScreenTop
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.DragGesturesDirectionDetector
@@ -33,7 +33,7 @@ fun GameScreenPortrait(
     isLoading: Boolean,
     onAction: (GameAction) -> Unit
 ) {
-    val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimens.outerPadding, showAllSections)
+    val uiSectionSizes = getUiSectionSizesPortrait(LocalConfiguration.current, MaterialTheme.dimensOld.outerPadding, showAllSections)
 
     Box {
         Column(
@@ -52,7 +52,7 @@ fun GameScreenPortrait(
                 )
             }
 
-            BoardGame(
+            BoardGameOld(
                 tableData = currentState.board,
                 currentDirection = currentDirection,
                 boardGameSize = uiSectionSizes.boardGameSize,

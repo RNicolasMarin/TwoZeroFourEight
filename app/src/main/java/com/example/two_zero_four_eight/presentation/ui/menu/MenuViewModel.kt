@@ -1,4 +1,4 @@
-package com.example.two_zero_four_eight.presentation_old.ui.menu
+package com.example.two_zero_four_eight.presentation.ui.menu
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.two_zero_four_eight.domain.models.next
 import com.example.two_zero_four_eight.domain.models.previous
-import com.example.two_zero_four_eight.presentation_old.ui.menu.MenuAction.*
+import com.example.two_zero_four_eight.presentation.ui.menu.MenuAction.*
 import kotlinx.coroutines.launch
 
 class MenuViewModel : ViewModel() {

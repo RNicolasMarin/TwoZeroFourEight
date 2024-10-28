@@ -20,7 +20,7 @@ import com.example.two_zero_four_eight.domain.models.CurrentRecordData
 import com.example.two_zero_four_eight.presentation_old.design_system.Black
 import com.example.two_zero_four_eight.presentation_old.design_system.Green3
 import com.example.two_zero_four_eight.presentation_old.design_system.White
-import com.example.two_zero_four_eight.presentation_old.design_system.dimens
+import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.design_system.shimmerEffect
 
 /**
@@ -33,7 +33,7 @@ fun CurrentRecord(
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val shape = RoundedCornerShape(MaterialTheme.dimens.corners)
+    val shape = RoundedCornerShape(MaterialTheme.dimensOld.corners)
     Box(modifier = modifier) {
         if (isLoading) {
             Box(modifier = modifier.shimmerEffect(shape))
@@ -46,8 +46,8 @@ fun CurrentRecord(
                         shape = shape
                     )
                     .padding(
-                        horizontal = MaterialTheme.dimens.currentRecordPaddingHorizontal,
-                        vertical = MaterialTheme.dimens.currentRecordPaddingVertical,
+                        horizontal = MaterialTheme.dimensOld.currentRecordPaddingHorizontal,
+                        vertical = MaterialTheme.dimensOld.currentRecordPaddingVertical,
                     )
             ) {
                 Text(
@@ -61,7 +61,7 @@ fun CurrentRecord(
                         value = data.currentValue
                     )
 
-                    Spacer(modifier = Modifier.width(MaterialTheme.dimens.currentRecordPaddingBetween))
+                    Spacer(modifier = Modifier.width(MaterialTheme.dimensOld.currentRecordPaddingBetween))
 
                     CurrentRecordSection(
                         title = stringResource(id = R.string.record_label),
