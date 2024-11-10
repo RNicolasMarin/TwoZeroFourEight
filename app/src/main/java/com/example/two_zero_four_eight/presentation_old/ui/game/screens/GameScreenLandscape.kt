@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.two_zero_four_eight.presentation_old.ui.game.SingleGameState
+import com.example.two_zero_four_eight.presentation.ui.game.SingleGameState
 import com.example.two_zero_four_eight.presentation_old.ui.game.components.BoardGameOld
 import com.example.two_zero_four_eight.presentation_old.design_system.Green7
 import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
@@ -21,8 +21,8 @@ import com.example.two_zero_four_eight.presentation_old.ui.game.components.GameS
 import com.example.two_zero_four_eight.presentation_old.ui.game.components.GameScreenLeft
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.DragGesturesDirectionDetector
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
 
 @Composable
 fun GameScreenLandscape(

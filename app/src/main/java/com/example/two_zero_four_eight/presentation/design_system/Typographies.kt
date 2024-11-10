@@ -12,5 +12,19 @@ data class Typographies(
         fontSize = 24.sp,
         lineHeight = 25.sp,
         letterSpacing = 0.5.sp
+    ),
+    val text16Bold: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        lineHeight = 17.sp,
+        letterSpacing = 0.5.sp
+    ),
+    val text14SemiBold: TextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        lineHeight = 15.sp,
+        letterSpacing = 0.5.sp
     )
 )

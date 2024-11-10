@@ -38,7 +38,7 @@ fun LabelText(
             color = White,
             style = textStyle,
             modifier = Modifier
-                .padding(horizontal = dimens.innerHorizontalPadding)
+                .padding(horizontal = dimens.innerHorizontalPadding2)
         )
     }
 }

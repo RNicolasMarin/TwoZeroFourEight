@@ -1,4 +1,4 @@
-package com.example.two_zero_four_eight.presentation_old.ui.game
+package com.example.two_zero_four_eight.presentation.ui.game
 
 import com.example.two_zero_four_eight.domain.models.CurrentRecordData
 

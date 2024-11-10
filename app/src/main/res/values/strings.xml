@@ -9,6 +9,8 @@
     <string name="current_label">Current</string>
     <string name="record_label">Record</string>
     <string name="start_again_button_description">Start Again</string>
+    <string name="previous_button_description">Anterior</string>
+    <string name="next_button_description">Siguiente</string>
 
     <string name="game_over_title">¡Game over!</string>
     <string name="you_win_title">¡You win!</string>

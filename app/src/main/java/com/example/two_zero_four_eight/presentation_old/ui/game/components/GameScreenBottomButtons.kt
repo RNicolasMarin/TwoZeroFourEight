@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.Dp
 import com.example.two_zero_four_eight.R
 import com.example.two_zero_four_eight.presentation_old.design_system.components.IconButton
 import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
 
 @Composable
 fun GameScreenBottomButtons(

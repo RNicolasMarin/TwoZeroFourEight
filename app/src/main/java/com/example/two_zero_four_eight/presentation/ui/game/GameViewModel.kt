@@ -1,19 +1,18 @@
-package com.example.two_zero_four_eight.presentation_old.ui.game
+package com.example.two_zero_four_eight.presentation.ui.game
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection.*
 import com.example.two_zero_four_eight.domain.use_cases.CreateBoardGameUseCase
 import com.example.two_zero_four_eight.domain.use_cases.MoveNumbersUseCase
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction.*
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameEvent.*
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameStatus.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameEvent.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,8 +25,8 @@ class GameViewModel @Inject constructor(
     private val moveNumbersUseCase: MoveNumbersUseCase
 ) : ViewModel() {
 
-    var state by mutableStateOf(GameState())
-        private set
+    private val _state = MutableStateFlow(GameState())
+    val state: StateFlow<GameState> = _state
 
     private val eventChannel = Channel<GameEvent>()
     val events = eventChannel.receiveAsFlow()
@@ -41,31 +40,35 @@ class GameViewModel @Inject constructor(
     }
 
     private fun startNewGame(size: Int, deletePreviousState: Boolean = false) = viewModelScope.launch {
-        val sizeToUse = if (size != -1) size else state.boardSize
+        val sizeToUse = if (size != -1) size else state.value.boardSize
 
-        state = state.copy(
+        _state.value = state.value.copy(
             boardSize = sizeToUse,
             isLoading = true
         )
 
-        val current = state.currentState
+        val current = state.value.currentState
         val newBoard = boardGameUseCases.createBoardGame(current, sizeToUse, deletePreviousState)
 
-        state = state.copy(
-            currentState = newBoard.currentState,
-            previousState = newBoard.previousState,
-            originalBestValues = newBoard.originalBestValues,
-            isLoading = false
-        )
+        with(newBoard) {
+            _state.value = state.value.copy(
+                simpleBoard = currentState.board.flatten(),
+                currentState = currentState,
+                previousState = previousState,
+                originalBestValues = originalBestValues,
+                isLoading = false
+            )
+        }
     }
 
     private fun moveNumbers(direction: MovementDirection) = viewModelScope.launch {
-        if (direction == NONE || state.currentState.gameStatus != PLAYING) return@launch
+        if (direction == NONE || state.value.currentState.gameStatus != PLAYING) return@launch
 
-        val newBoard = moveNumbersUseCase.moveNumbers(direction, state)
+        val newBoard = moveNumbersUseCase.moveNumbers(direction, state.value)
 
         with(newBoard) {
-            state = state.copy(
+            _state.value = state.value.copy(
+                simpleBoard = currentState.board.flatten(),
                 currentState = currentState,
                 previousState = previousState,
                 originalBestValues = originalBestValues
@@ -93,17 +96,20 @@ class GameViewModel @Inject constructor(
     }
 
     private fun previousBoard() = viewModelScope.launch {
-        val previous = state.previousState ?: return@launch
+        val previous = state.value.previousState?.copy() ?: return@launch
 
-        state = state.copy(
-            currentState = previous.copy(),
-            previousState = null,
-        )
+        with(previous) {
+            _state.value = state.value.copy(
+                simpleBoard = board.flatten(),
+                currentState = this,
+                previousState = null,
+            )
+        }
     }
 
     fun updateCurrentGameStatus(status: GameStatus) {
-        state = state.copy(
-            currentState = state.currentState.apply {
+        _state.value = state.value.copy(
+            currentState = state.value.currentState.apply {
                 gameStatus = status
             }
         )

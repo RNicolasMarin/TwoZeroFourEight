@@ -1,11 +1,12 @@
-package com.example.two_zero_four_eight.presentation_old.ui.game
+package com.example.two_zero_four_eight.presentation.ui.game
 
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameStatus.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
 import com.example.two_zero_four_eight.domain.models.CurrentRecordData
 import com.example.two_zero_four_eight.domain.models.IndividualBestValues
 import com.example.two_zero_four_eight.domain.use_cases.copy
 
 data class GameState(
+    val simpleBoard : List<Int> = emptyList(),
     var currentState: SingleGameState = SingleGameState(),
     var previousState: SingleGameState? = null,
     var originalBestValues: IndividualBestValues = IndividualBestValues(),

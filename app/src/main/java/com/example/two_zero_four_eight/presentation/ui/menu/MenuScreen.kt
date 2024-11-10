@@ -82,6 +82,7 @@ fun MenuScreen(
                     .weight(1f)
             ) {
                 BoardGame(
+                    data = state.boardSize.cells.flatten(),
                     modifier = Modifier
                 )
             }
@@ -111,6 +112,7 @@ fun MenuScreen(
         ) {
             if (screenContentOrientation == PORTRAIT) {
                 BoardGame(
+                    data = state.boardSize.cells.flatten(),
                     modifier = Modifier
                         .fillMaxWidth()
                 )

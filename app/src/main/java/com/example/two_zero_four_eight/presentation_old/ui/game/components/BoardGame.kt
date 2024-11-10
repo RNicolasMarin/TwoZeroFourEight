@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,12 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
 import com.example.two_zero_four_eight.presentation_old.design_system.Black
-import com.example.two_zero_four_eight.presentation_old.design_system.Grey2
 import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection
 import com.example.two_zero_four_eight.presentation_old.design_system.shimmerEffect
-import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
 
 /**
  * It renders the board game with empty cells and cells with numbers.
@@ -47,7 +45,12 @@ fun BoardGameOld(
         if (isLoading) {
             Box(modifier = Modifier.size(boardGameSize).padding(boardInnerPadding).shimmerEffect(shape))
         } else {
-            LazyColumn(
+            /*BoardGame(
+                boardSize = 3,
+                data = tableData,
+                modifier = Modifier
+                .size(boardGameSize))*/
+            /*LazyColumn(
                 modifier = Modifier
                     .size(boardGameSize)
                     .background(
@@ -61,7 +64,7 @@ fun BoardGameOld(
                 ) { row ->
                     BoardGameRow(rowData = row, boardGameSize - boardInnerPadding.times(2))
                 }
-            }
+            }*/
         }
     }
 }

@@ -9,17 +9,17 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.two_zero_four_eight.domain.models.CurrentRecordData
 import com.example.two_zero_four_eight.presentation_old.design_system.ObserveAsEvents
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameState
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameViewModel
+import com.example.two_zero_four_eight.presentation.ui.game.GameState
+import com.example.two_zero_four_eight.presentation.ui.game.GameViewModel
 import com.example.two_zero_four_eight.presentation_old.design_system.isBothCompact
 import com.example.two_zero_four_eight.presentation_old.design_system.isPortrait
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection.*
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction.*
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameEvent.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameEvent.*
 
 @Composable
-fun GameScreenRoot(
+fun GameScreenRootOld(
     onGameOver: (CurrentRecordData, CurrentRecordData, Int) -> Unit,
     onYouWin: (CurrentRecordData, CurrentRecordData) -> Unit,
     viewModel: GameViewModel = hiltViewModel()
@@ -30,16 +30,16 @@ fun GameScreenRoot(
             is YouWin -> onYouWin(event.numberCurrentRecord, event.scoreCurrentRecord)
         }
     }
-    GameScreen(
+    /*GameScreenOld(
         state = viewModel.state,
         onAction = { action ->
             viewModel.onAction(action)
         }
-    )
+    )*/
 }
 
 @Composable
-fun GameScreen(
+fun GameScreenOld(
     state: GameState,
     onAction: (GameAction) -> Unit
 ) {

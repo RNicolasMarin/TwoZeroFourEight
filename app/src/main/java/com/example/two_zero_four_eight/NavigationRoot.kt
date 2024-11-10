@@ -9,10 +9,10 @@ import androidx.navigation.toRoute
 import com.example.two_zero_four_eight.domain.models.CurrentRecordData
 import com.example.two_zero_four_eight.presentation.ui.menu.MenuScreenRoot
 import com.example.two_zero_four_eight.presentation_old.ui.Screen.*
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction.*
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameStatus.*
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameViewModel
-import com.example.two_zero_four_eight.presentation_old.ui.game.screens.GameScreenRoot
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameScreenRoot
+import com.example.two_zero_four_eight.presentation.ui.game.GameStatus.*
+import com.example.two_zero_four_eight.presentation.ui.game.GameViewModel
 import com.example.two_zero_four_eight.presentation_old.ui.records.RecordsScreenRoot
 import com.example.two_zero_four_eight.presentation_old.ui.win_or_lose.BottomButtonGameOver
 import com.example.two_zero_four_eight.presentation_old.ui.win_or_lose.BottomButtonYouWin

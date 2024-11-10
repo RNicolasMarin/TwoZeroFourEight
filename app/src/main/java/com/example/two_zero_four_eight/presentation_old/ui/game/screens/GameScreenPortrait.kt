@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -14,16 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.two_zero_four_eight.presentation_old.ui.game.SingleGameState
-import com.example.two_zero_four_eight.presentation_old.ui.game.components.BoardGameOld
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction
+import com.example.two_zero_four_eight.presentation.ui.game.GameAction.OnMoveNumbers
+import com.example.two_zero_four_eight.presentation.ui.game.SingleGameState
 import com.example.two_zero_four_eight.presentation_old.design_system.Green7
 import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
-import com.example.two_zero_four_eight.presentation_old.ui.game.components.GameScreenBottomButtons
-import com.example.two_zero_four_eight.presentation_old.ui.game.components.GameScreenTop
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.DragGesturesDirectionDetector
 import com.example.two_zero_four_eight.presentation_old.design_system.movements.MovementDirection
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction
-import com.example.two_zero_four_eight.presentation_old.ui.game.GameAction.*
+import com.example.two_zero_four_eight.presentation_old.ui.game.components.BoardGameOld
+import com.example.two_zero_four_eight.presentation_old.ui.game.components.GameScreenTop
 
 @Composable
 fun GameScreenPortrait(
@@ -52,13 +50,13 @@ fun GameScreenPortrait(
                 )
             }
 
-            BoardGameOld(
+            /*BoardGameOld(
                 tableData = currentState.board,
                 currentDirection = currentDirection,
                 boardGameSize = uiSectionSizes.boardGameSize,
                 isLoading = isLoading,
                 modifier = Modifier.height(uiSectionSizes.boardGameHeight)
-            )
+            )*/
         }
         DragGesturesDirectionDetector(
             modifier = Modifier.fillMaxSize(),
@@ -66,7 +64,14 @@ fun GameScreenPortrait(
                 onAction(OnMoveNumbers(it))
             }
         ) {
-            if (showAllSections) {
+            BoardGameOld(
+                tableData = currentState.board,
+                currentDirection = currentDirection,
+                boardGameSize = uiSectionSizes.boardGameSize,
+                isLoading = isLoading,
+                modifier = Modifier.height(uiSectionSizes.boardGameHeight)
+            )
+            /*if (showAllSections) {
                 GameScreenBottomButtons(
                     topHeight = uiSectionSizes.topHeight,
                     boardGameHeight = uiSectionSizes.boardGameHeight,
@@ -74,7 +79,7 @@ fun GameScreenPortrait(
                     modifier = Modifier.fillMaxWidth(),
                     onAction = onAction
                 )
-            }
+            }*/
         }
     }
 }

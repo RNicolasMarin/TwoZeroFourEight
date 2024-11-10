@@ -70,7 +70,7 @@ fun IconButtonPrevious(
     IconButton(
         iconResource = R.drawable.undo_move_2,
         rotate = -45f,
-        contentDescription = stringResource(id = R.string.start_again_button_description),
+        contentDescription = stringResource(id = R.string.previous_button_description),
         onClick = onClick,
         modifier = modifier
     )
@@ -85,6 +85,19 @@ fun IconButtonNext(
         iconResource = R.drawable.undo_move_2,
         invert = true,
         rotate = -45f,
+        contentDescription = stringResource(id = R.string.next_button_description),
+        onClick = onClick,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun IconButtonStartAgain(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        iconResource = R.drawable.start_again,
         contentDescription = stringResource(id = R.string.start_again_button_description),
         onClick = onClick,
         modifier = modifier
@@ -107,6 +120,17 @@ private fun IconButtonPreviousPreview() {
 private fun IconButtonNextPreview() {
     TwoZeroFourEightTheme {
         IconButtonNext(
+            onClick = {},
+            modifier = Modifier
+        )
+    }
+}
+
+@Preview(heightDp = 45, widthDp = 45)
+@Composable
+private fun IconButtonStartAgainPreview() {
+    TwoZeroFourEightTheme {
+        IconButtonStartAgain(
             onClick = {},
             modifier = Modifier
         )
