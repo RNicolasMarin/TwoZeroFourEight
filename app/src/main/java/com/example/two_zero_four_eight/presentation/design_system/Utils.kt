@@ -6,6 +6,7 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
 
 @Composable
 fun Int.toDp(): Dp {
@@ -22,6 +23,14 @@ fun Dp.toPx(): Float {
 fun TextMeasurer.getMeasureResult(text: String, style: TextStyle): TextLayoutResult {
     return measure(
         text = text,
+        style = style,
+        maxLines = 1
+    )
+}
+
+fun TextMeasurer.getCellMeasureResult(cell: Int, style: TextStyle): TextLayoutResult {
+    return measure(
+        text = if (cell == DEFAULT_VALUE) "" else cell.toString(),
         style = style,
         maxLines = 1
     )

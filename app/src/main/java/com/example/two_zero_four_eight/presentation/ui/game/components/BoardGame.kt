@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -23,10 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import com.example.two_zero_four_eight.domain.models.fiveXFive
 import com.example.two_zero_four_eight.domain.models.threeXThree
-import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
 import com.example.two_zero_four_eight.presentation.design_system.Dimens
 import com.example.two_zero_four_eight.presentation.design_system.TwoZeroFourEightTheme
 import com.example.two_zero_four_eight.presentation.design_system.dimens
+import com.example.two_zero_four_eight.presentation.design_system.getCellMeasureResult
 import com.example.two_zero_four_eight.presentation.design_system.typographies
 import com.example.two_zero_four_eight.presentation_old.design_system.Black
 import com.example.two_zero_four_eight.presentation_old.design_system.Grey2
@@ -82,6 +84,10 @@ fun BoardGameCanvas(
 ) {
     val measurer = rememberTextMeasurer()
 
+    val valueResults = remember {
+        hashMapOf<Int, TextLayoutResult>()
+    }
+
     Canvas(
         modifier = Modifier
             .size(boardSize)
@@ -99,6 +105,8 @@ fun BoardGameCanvas(
             color = Grey2,
             cornerRadius = CornerRadius(radiusPx, radiusPx)
         )
+
+        val cellUsableWidth = cellSizePx - innerBoardPadding.toPx()
 
         var y = paddingPx
         data.forEachIndexed { index, cell ->
@@ -122,16 +130,39 @@ fun BoardGameCanvas(
                 style = Stroke(1.dp.toPx())
             )
 
-            val valueResult = measurer.measure(
-                text = if (cell == DEFAULT_VALUE) "" else cell.toString(),
-                style = textStyle.copy(
+            //check if the map has the result for that number and use it
+            //if not measure for that value, check if it fits, if it doesn't recalculate smaller until it fits and save for that number
+
+            val savedResult = valueResults[cell]
+            val valueResult = if (savedResult != null) {
+                savedResult
+            } else {
+                var newTextStyle = textStyle.copy(
                     color = cellData.textColor,
                     textAlign = TextAlign.Center
-                ),
-                maxLines = 1
-            )
+                )
+
+                var possibleResult = measurer.getCellMeasureResult(cell, newTextStyle)
+
+                while (possibleResult.size.width > cellUsableWidth) {
+
+                    val newFontSize = newTextStyle.fontSize * 0.95
+
+                    newTextStyle = newTextStyle.copy(
+                        fontSize = newFontSize,
+                        lineHeight = (newFontSize.value + 1).toSp(),
+                    )
+
+                    possibleResult = measurer.getCellMeasureResult(cell, newTextStyle)
+                }
+
+                valueResults[cell] = possibleResult.copy()
+                possibleResult
+            }
+
             val textY = y + cellSizePx / 2 - valueResult.size.height / 2
             val textX = x + cellSizePx / 2 - valueResult.size.width / 2
+
             drawText(
                 topLeft = Offset(textX, textY),
                 textLayoutResult = valueResult,

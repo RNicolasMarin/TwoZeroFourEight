@@ -15,6 +15,7 @@ import com.example.two_zero_four_eight.domain.use_cases.DEFAULT_VALUE
 
 /**It has the details to know how to render a cell on the boardGame**/
 data class CellData(
+    val number: Int,
     val backgroundColor: Color,
     val textColor: Color
 )
@@ -49,6 +50,7 @@ fun getCellData(cellData: Int): CellData {
         else -> Black
     }
     return CellData(
+        number = cellData,
         backgroundColor = backgroundColor,
         textColor = textColor
     )
