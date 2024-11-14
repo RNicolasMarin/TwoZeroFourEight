@@ -25,7 +25,7 @@ import com.example.two_zero_four_eight.presentation_old.design_system.components
 import com.example.two_zero_four_eight.presentation_old.design_system.dimensOld
 
 @Composable
-fun WinOrLoseScreen(
+fun WinOrLoseScreenOld(
     @StringRes titleRes: Int,
     numberToShow: Int,
     numberCurrentRecord: CurrentRecordData,
